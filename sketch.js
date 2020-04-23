@@ -11,7 +11,6 @@ let disZ;
 function setParams(){
   w = 22;
   off = min(width, height);
-  _off = max(width, height);
   limit = floor((off*0.9)*sin(magic_angle)/(w+2));
   if(limit < 15){
     w = floor((off*0.9)*sin(magic_angle)/15 - 2);
@@ -61,6 +60,13 @@ function mouseClicked(){
   angleMode(RADIANS);
 }
 
+function keyPressed(){
+  if(key == ' '){
+    disX = limit/2;
+    disZ = limit/2;
+  }
+}
+
 function draw() {
   background(10);
   stroke(0)
@@ -85,9 +91,6 @@ function draw() {
     }
   }
   angle -= speed;
-
-  x1 = 0;
-
 }
 
 function windowResized() {
