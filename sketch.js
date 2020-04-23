@@ -82,8 +82,8 @@ function draw() {
   for(let z = 0; z < limit; z++){
     for(let x = 0; x < limit; x++){
       let offset = dist(x,z, disX, disZ);
-      let scl = map(offset, 0, limit*sqrt(2)/2, 0.1, 1);
-      let h = map(sin(angle+offset*scl*0.75), -1, 1, 60, limit*20);
+      let scl = map(offset, 0, limit*sqrt(2), 0.1, 1);
+      let h = map(sin(angle+offset*scl*0.9), -1, 1, 60, limit*20);
       push();
       translate((w + 2)*x, 0, (w + 2)*z);
       box(w,h,w);
