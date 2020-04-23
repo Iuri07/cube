@@ -26,7 +26,5 @@ function get_min(a1, b1, a2, b2, z){
 
   let min = intersect_point([x1,y1], [x2,y2], [x1,y3], [x2,y4])
   min = !z ? floor((-min[0] / bw) + (min[1] / (bw*0.75))) : floor((min[1] /(bw*0.75)) + (min[0] /bw));
-  // min = floor((-min[0] / bw) + (min[1] / (bw*0.75)));
-  console.log(min)
   return min
 }
