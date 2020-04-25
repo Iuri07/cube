@@ -1,12 +1,13 @@
 let w = 22;
 let angle = 0;
-let speed = 0.07;
+let speed = 0.05;
 let magic_angle;
 let limit;
 let off;
 let _off;
 let disX;
 let disZ;
+let noise_mode = false;
 
 function setParams(){
   w = 22;
@@ -65,6 +66,12 @@ function keyPressed(){
     disX = limit/2;
     disZ = limit/2;
   }
+  if(key == 'n'){
+    noise_mode = !noise_mode;
+    if(noise_mode)
+      speed = 0.02;
+    else speed = 0.05;
+  }
 }
 
 function draw() {
@@ -84,6 +91,11 @@ function draw() {
       let offset = dist(x,z, disX, disZ);
       let scl = map(offset, 0, limit*sqrt(2), 0.1, 1);
       let h = map(sin(angle+offset*scl*0.9), -1, 1, 60, limit*20);
+
+      if(noise_mode){
+        let n = noise(x/10 + angle,z/10 + angle);
+        h = map(n, 0.3, 0.8, 60, limit*20);
+      }
       push();
       translate((w + 2)*x, 0, (w + 2)*z);
       box(w,h,w);
