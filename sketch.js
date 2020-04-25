@@ -7,7 +7,7 @@ let off;
 let _off;
 let disX;
 let disZ;
-let noise_mode = false;
+let mode = 'cube';
 
 function setParams(){
   w = 22;
@@ -31,6 +31,8 @@ function setup() {
 }
 
 function mouseClicked(){
+  if(mode != 'cube') return;
+  
   angleMode(DEGREES);
   let off = min(width, height);
   let limit = floor((off*0.9)*sin(45)/(w+2));
@@ -67,11 +69,29 @@ function keyPressed(){
     disZ = limit/2;
   }
   if(key == 'n'){
-    noise_mode = !noise_mode;
-    if(noise_mode)
+    if(mode != 'noise'){
+      mode = 'noise';
       speed = 0.02;
-    else speed = 0.05;
+    }
+    else{
+      mode = 'cube';
+      speed = 0.05;
+    }
   }
+  if(key == 'w'){
+    if(mode != 'wave'){
+      mode = 'wave';
+      speed = 0.05;
+    }
+    else{
+      mode = 'cube';
+    }
+  }
+  if(key == 'c'){
+      mode = 'cube';
+      speed = 0.05;
+  }
+
 }
 
 function draw() {
@@ -88,14 +108,20 @@ function draw() {
 
   for(let z = 0; z < limit; z++){
     for(let x = 0; x < limit; x++){
-      let offset = dist(x,z, disX, disZ);
-      let scl = map(offset, 0, limit*sqrt(2), 0.1, 1);
-      let h = map(sin(angle+offset*scl*0.9), -1, 1, 60, limit*20);
+      let h ;
+      if(mode == 'cube'){
+        let offset = dist(x,z, disX, disZ);
+        let scl = map(offset, 0, limit*sqrt(2), 0.1, 1);
+        h = map(sin(angle+offset*scl*0.9), -1, 1, 60, limit*20);
 
-      if(noise_mode){
+      }else if(mode == 'wave'){
+        h = map(sin(angle+x*0.2+z*0.2), -1, 1, 60, limit*20);
+
+      }else if(mode == 'noise'){
         let n = noise(x/10 + angle,z/10 + angle);
         h = map(n, 0.3, 0.8, 60, limit*20);
       }
+
       push();
       translate((w + 2)*x, 0, (w + 2)*z);
       box(w,h,w);
