@@ -1,12 +1,12 @@
 function intersect_point(point1, point2, point3, point4) {
    const ua = ((point4[0] - point3[0]) * (point1[1] - point3[1]) -
-             (point4[1] - point3[1]) * (point1[0] - point3[0])) /
-            ((point4[1] - point3[1]) * (point2[0] - point1[0]) -
-             (point4[0] - point3[0]) * (point2[1] - point1[1]));
+              (point4[1] - point3[1]) * (point1[0] - point3[0])) /
+              ((point4[1] - point3[1]) * (point2[0] - point1[0]) -
+              (point4[0] - point3[0]) * (point2[1] - point1[1]));
 
   const ub = ((point2[0] - point1[0]) * (point1[1] - point3[1]) -
              (point2[1] - point1[1]) * (point1[0] - point3[0])) /
-            ((point4[1] - point3[1]) * (point2[0] - point1[0]) -
+             ((point4[1] - point3[1]) * (point2[0] - point1[0]) -
              (point4[0] - point3[0]) * (point2[1] - point1[1]));
 
   const x = point1[0] + ua * (point2[0] - point1[0]);
